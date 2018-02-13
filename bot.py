@@ -37,6 +37,12 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
+    print(event)
+    line_bot_api.reply_message(
+        event.reply_token,
+        TextSendMessage(text=str(event)))
+    return
+    """
     profile = line_bot_api.get_profile(event.source.userId)
     freedan = ['FreeDan', '弗力丹', '阿丹']
     for name in freedan:
@@ -45,7 +51,7 @@ def handle_message(event):
                 event.reply_token,
                 TextSendMessage(text='阿丹吃MoMo阿'))
             return
-
+    """
 
 if __name__ == "__main__":
     app.run()
