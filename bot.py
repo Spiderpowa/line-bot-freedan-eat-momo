@@ -42,7 +42,11 @@ def handle_message(event):
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text='京站MoMo訂位專線:(02)2550-0889'))
-    profile = line_bot_api.get_profile(event.source.user_id)
+    if event.source.type == 'user':
+        profile = line_bot_api.get_profile(event.source.user_id)
+    elif event.source.type == 'group':
+        profile = line_bot_api.get_group_member_profile(
+            event.source.group_id, event.source.user_id)
     print(profile)
     freedan = ['FreeDan', '弗力丹', '阿丹']
     for name in freedan:
