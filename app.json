@@ -1,5 +1,7 @@
 {
   "buildpacks": [
-    "heroku/python"
+    {
+      "url":"heroku/python"
+    }
   ]
 }
