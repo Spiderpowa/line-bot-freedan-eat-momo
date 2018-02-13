@@ -17,28 +17,13 @@ class MoMoBot:
         self.line_bot_api = line_bot_api
         self.handler = handler
         
-        @self.app.route("/callback", methods=['POST'])
-        def callback():
-            # get X-Line-Signature header value
-            signature = request.headers['X-Line-Signature']
-
-            # get request body as text
-            body = request.get_data(as_text=True)
-            app.logger.info("Request body: " + body)
-
-            # handle webhook body
-            try:
-                handler.handle(body, signature)
-            except InvalidSignatureError:
-                abort(400)
-
-            return 'OK'
+        self.app.add_url_rule("/callback", None, self.__callback, methods=['POST'])
 
         @self.handler.add(MessageEvent, message=TextMessage)
-        def handle_message(event):
+        def handle_message(self, event):
             print(event)
             if '吃MoMo' in event.message.text:
-                line_bot_api.reply_message(
+                self.line_bot_api.reply_message(
                     event.reply_token,
                     TextSendMessage(text='京站MoMo訂位專線:(02)2550-0889'))
             if event.source.user_id is None:
@@ -52,10 +37,27 @@ class MoMoBot:
             freedan = ['FreeDan', '弗力丹', '阿丹']
             for name in freedan:
                 if name in profile.display_name:
-                    line_bot_api.reply_message(
+                    self.line_bot_api.reply_message(
                         event.reply_token,
                         TextSendMessage(text='阿丹吃MoMo阿'))
                     return
+
+    def __callback(self):
+        # get X-Line-Signature header value
+        signature = request.headers['X-Line-Signature']
+
+        # get request body as text
+        body = request.get_data(as_text=True)
+        self.app.logger.info("Request body: " + body)
+
+        # handle webhook body
+        try:
+            self.handler.handle(body, signature)
+        except InvalidSignatureError:
+            abort(400)
+
+        return 'OK'
+
     def run(self):
         self.app.run()
 
