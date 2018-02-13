@@ -60,6 +60,9 @@ class MoMoBot:
 
     def run(self):
         self.app.run()
+ 
+    def __call__(self, environ, start_response):
+        return self.app(environ, start_response)
 
 
 if __name__ == "__main__":
