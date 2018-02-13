@@ -2,6 +2,10 @@ from bot import MoMoBot
 from linebot import (
     LineBotApi, WebhookHandler
 )
+
+from linebot.models import (
+    MessageEvent, TextMessage,
+)
 import os
 
 line_bot_api = LineBotApi(os.environ['LINEBOT_CHANNEL_ACCESS_TOKEN'])
