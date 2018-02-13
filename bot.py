@@ -39,6 +39,7 @@ def callback():
 def handle_message(event):
     print(event.source)
     profile = line_bot_api.get_profile(event.source.user_id)
+    print(profile)
     freedan = ['FreeDan', '弗力丹', '阿丹']
     for name in freedan:
         if name in profile.display_name:
