@@ -25,7 +25,7 @@ class MoMoBot:
     
     def handle_message(self, event):
         print(event)
-        if '吃MoMo' in event.message.text:
+        if '吃MoMo'.casefold() in event.message.text.casefold():
             self.line_bot_api.reply_message(
                 event.reply_token,
                 TextSendMessage(text='京站MoMo訂位專線:(02)2550-0889'))
