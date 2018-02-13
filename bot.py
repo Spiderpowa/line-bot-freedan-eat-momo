@@ -42,6 +42,8 @@ def handle_message(event):
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text='京站MoMo訂位專線:(02)2550-0889'))
+    if event.source.user_id is None:
+        return
     if event.source.type == 'user':
         profile = line_bot_api.get_profile(event.source.user_id)
     elif event.source.type == 'group':
