@@ -12,7 +12,7 @@ from linebot.models import (
 )
 
 class MoMoBot:
-    def __init__(self, line_bot_api, handler):
+    def __init__(self, line_bot_api):
         self.app = Flask(__name__)
         self.line_bot_api = line_bot_api
         self.handler = None
@@ -75,7 +75,7 @@ class MoMoBot:
 if __name__ == "__main__":
     line_bot_api = LineBotApi(os.environ['LINEBOT_CHANNEL_ACCESS_TOKEN'])
 
-    bot = MoMoBot(line_bot_api, handler)
+    bot = MoMoBot(line_bot_api)
 
     handler = WebhookHandler(os.environ['LINEBOT_CHANNEL_SECRET'])
     @handler.add(MessageEvent, message=TextMessage)

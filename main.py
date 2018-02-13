@@ -6,7 +6,7 @@ import os
 
 line_bot_api = LineBotApi(os.environ['LINEBOT_CHANNEL_ACCESS_TOKEN'])
 
-app = MoMoBot(line_bot_api, handler)
+app = MoMoBot(line_bot_api)
 
 handler = WebhookHandler(os.environ['LINEBOT_CHANNEL_SECRET'])
 @handler.add(MessageEvent, message=TextMessage)
