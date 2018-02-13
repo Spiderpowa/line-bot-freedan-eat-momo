@@ -32,9 +32,9 @@ class MoMoBot:
         if event.source.user_id is None:
             return
         if event.source.type == 'user':
-            profile = line_bot_api.get_profile(event.source.user_id)
+            profile = self.line_bot_api.get_profile(event.source.user_id)
         elif event.source.type == 'group':
-            profile = line_bot_api.get_group_member_profile(
+            profile = self.line_bot_api.get_group_member_profile(
                 event.source.group_id, event.source.user_id)
         print(profile)
         freedan = ['FreeDan', '弗力丹', '阿丹']
