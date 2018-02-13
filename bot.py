@@ -37,6 +37,10 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
+    if '吃MoMo' in event.message.text:
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text='京站MoMo訂位專線:(02)2550-0889'))
     print(event.source)
     profile = line_bot_api.get_profile(event.source.user_id)
     print(profile)
