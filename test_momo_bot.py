@@ -72,6 +72,31 @@ class TestMoMoBot:
         profile = Profile()
         line_bot_api.get_profile = MagicMock(return_value=profile)
 
+        # Test 'FreeDan' and his possible name and message
+        profile.display_name = 'FreeDan - 啊哈'
+        event.message.text = '今天晚餐吃甚麼?'
+        bot.handle_message(event)
+        event.message.text = '今天晚餐吃什麼?'
+        bot.handle_message(event)
+
+        profile.display_name = '數學教師弗力丹'
+        event.message.text = '今天午餐吃甚麼?'
+        bot.handle_message(event)
+        event.message.text = '今天午餐吃什麼?'
+        bot.handle_message(event)
+
+        profile.display_name = '阿丹不是阿舟'
+        event.message.text = '明天早餐吃甚麼?'
+        bot.handle_message(event)
+        event.message.text = '明天早餐吃什麼?'
+        bot.handle_message(event)
+
+        assert line_bot_api.reply_message.call_count == 6
+        for (reply, _) in line_bot_api.reply_message.call_args_list:
+            assert reply[1].text == '阿丹吃MoMo阿'
+
+        line_bot_api.reply_message.reset_mock()
+        event.message.text = '晚餐吃麥當勞'
         # Test 'FreeDan' and his possible name
         profile.display_name = 'FreeDan - 啊哈'
         bot.handle_message(event)
@@ -79,11 +104,10 @@ class TestMoMoBot:
         bot.handle_message(event)
         profile.display_name = '阿丹不是阿舟'
         bot.handle_message(event)
-        
-        assert line_bot_api.reply_message.call_count == 3
-        for (reply, _) in line_bot_api.reply_message.call_args_list:
-            assert reply[1].text == '阿丹吃MoMo阿'
 
+        assert line_bot_api.reply_message.call_count == 0
+
+        line_bot_api.reply_message.reset_mock()
         # Test normal people
         line_bot_api.reply_message.reset_mock()
         profile.display_name = '冰凍麵包'
