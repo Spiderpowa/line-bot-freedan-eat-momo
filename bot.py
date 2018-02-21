@@ -42,7 +42,8 @@ class MoMoBot:
         for name in freedan:
             if (name in profile.display_name and
                 ('吃什麼' in event.message.text or
-                 '吃甚麼' in event.message.text)):
+                 '吃甚麼' in event.message.text or
+                 '吃啥' in event.message.text)):
                 self.line_bot_api.reply_message(
                     event.reply_token,
                     TextSendMessage(text='阿丹吃MoMo阿'))

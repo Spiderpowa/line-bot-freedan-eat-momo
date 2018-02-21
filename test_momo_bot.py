@@ -80,11 +80,15 @@ class TestMoMoBot:
         bot.handle_message(event)
         event.message.text = '今天晚餐吃什麼?'
         bot.handle_message(event)
+        event.message.text = '今天晚餐吃啥?'
+        bot.handle_message(event)
 
         profile.display_name = '數學教師弗力丹'
         event.message.text = '今天午餐吃甚麼?'
         bot.handle_message(event)
         event.message.text = '今天午餐吃什麼?'
+        bot.handle_message(event)
+        event.message.text = '今天午餐吃啥?'
         bot.handle_message(event)
 
         profile.display_name = '阿丹不是阿舟'
@@ -92,8 +96,10 @@ class TestMoMoBot:
         bot.handle_message(event)
         event.message.text = '明天早餐吃什麼?'
         bot.handle_message(event)
+        event.message.text = '明天早餐吃啥?'
+        bot.handle_message(event)
 
-        assert line_bot_api.reply_message.call_count == 6
+        assert line_bot_api.reply_message.call_count == 9
         for (reply, _) in line_bot_api.reply_message.call_args_list:
             assert reply[1].text == '阿丹吃MoMo阿'
 
