@@ -5,11 +5,11 @@ from linebot import (
 )
 
 from linebot.models import (
-    MessageEvent, TextSendMessage
+    MessageEvent
 )
 
 from linebot.models.sources import (
-    SourceUser, SourceGroup
+    SourceUser
 )
 
 from linebot.models.messages import (
@@ -23,6 +23,7 @@ from linebot.models.responses import (
 from bot import MoMoBot
 from unittest.mock import MagicMock
 import pytest
+
 
 class TestMoMoBot:
     @pytest.fixture(scope='class')
@@ -42,7 +43,7 @@ class TestMoMoBot:
         source = SourceUser("Uxxxxxxxxx")
         message = TextMessage()
         event = MessageEvent(source=source, message=message)
-        
+
         # Test '吃MoMo' case insensitive
         line_bot_api.reply_message = MagicMock()
         message.text = "吃MoMo"
@@ -63,10 +64,11 @@ class TestMoMoBot:
         message.text = "沒有要吃喔"
         bot.handle_message(event)
         assert line_bot_api.reply_message.call_count == 0
-    
+
     def test_freedan(self, bot, line_bot_api):
         source = SourceUser("Uxxxxxxxxx")
-        event = MessageEvent(source=source, message=TextMessage(text="RandomMessage"))
+        event = MessageEvent(source=source,
+                             message=TextMessage(text="RandomMessage"))
         line_bot_api.reply_message = MagicMock()
 
         profile = Profile()
@@ -113,4 +115,3 @@ class TestMoMoBot:
         profile.display_name = '冰凍麵包'
         bot.handle_message(event)
         assert line_bot_api.reply_message.call_count == 0
-

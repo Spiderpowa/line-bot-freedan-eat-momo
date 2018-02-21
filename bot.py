@@ -11,18 +11,19 @@ from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,
 )
 
+
 class MoMoBot:
     def __init__(self, line_bot_api):
         self.app = Flask(__name__)
         self.line_bot_api = line_bot_api
         self.handler = None
-        
-        self.app.add_url_rule("/callback", None, self.__callback, methods=['POST'])
+
+        self.app.add_url_rule("/callback", None,
+                              self.__callback, methods=['POST'])
 
     def set_handler(self, handler):
         self.handler = handler
 
-    
     def handle_message(self, event):
         print(event)
         if '吃MoMo'.casefold() in event.message.text.casefold():
@@ -55,9 +56,8 @@ class MoMoBot:
         body = request.get_data(as_text=True)
         self.app.logger.info("Request body: " + body)
 
-
         if self.handler is None:
-            abort(202) # Accept
+            abort(202)  # Accept
 
         # handle webhook body
         try:
@@ -69,7 +69,7 @@ class MoMoBot:
 
     def run(self):
         self.app.run()
- 
+
     def __call__(self, environ, start_response):
         return self.app(environ, start_response)
 
@@ -80,10 +80,10 @@ if __name__ == "__main__":
     bot = MoMoBot(line_bot_api)
 
     handler = WebhookHandler(os.environ['LINEBOT_CHANNEL_SECRET'])
+
     @handler.add(MessageEvent, message=TextMessage)
     def handle_message(event):
         bot.handle_message(event)
 
     bot.set_handler(handler)
     bot.run()
-
