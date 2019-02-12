@@ -57,7 +57,7 @@ class TestMoMoBot:
 
         assert line_bot_api.reply_message.call_count == 4
         for (reply, _) in line_bot_api.reply_message.call_args_list:
-            assert reply[1].text == '京站MoMo訂位專線:(02)2550-0889'
+            assert reply[1].text == '衡陽MoMo訂位專線:(02)2361-9288'
 
         # Test normal message
         line_bot_api.reply_message.reset_mock()
