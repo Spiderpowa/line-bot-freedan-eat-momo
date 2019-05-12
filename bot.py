@@ -29,7 +29,7 @@ class MoMoBot:
         if '吃MoMo'.casefold() in event.message.text.casefold():
             self.line_bot_api.reply_message(
                 event.reply_token,
-                TextSendMessage(text='衡陽MoMo訂位專線:(02)2361-9288'))
+                TextSendMessage(text='內湖MoMo訂位專線:(02)8792-9938'))
         if event.source.user_id is None:
             return
         if event.source.type == 'user':
